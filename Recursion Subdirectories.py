@@ -1,7 +1,9 @@
 import os, shutil
+from configobj import ConfigObj
 '''Using recursion to iterate through all subdirectories and transfer it to the main directory.'''
-
-srcpath = r"D:\Anime\speed power test"
+config=ConfigObj('config.ini')
+srcpath = config["srcpath"]
+types_of_files = config["types_of_files"]
 
 #ensure that the srcpath always stays constant, so its passed on to the next function varibales
 def transfer(srcpath, cwd):
@@ -9,8 +11,11 @@ def transfer(srcpath, cwd):
     for fileName in file_dir:
         if os.path.isdir(os.path.join(cwd,fileName)):
             transfer(srcpath, os.path.join(cwd,fileName))
-        elif (fileName.endswith('.mkv') or fileName.endswith('.mp4')) and cwd != srcpath:
-            print ("Moving "+ fileName)
-            shutil.move(os.path.join(cwd,fileName), srcpath)
+        else:
+            for mytype in types_of_files:
+                if fileName.endswith(mytype)and cwd != srcpath:
+                    print ("Moving "+ fileName)
+                    shutil.move(os.path.join(cwd,fileName), srcpath)
+            
 
 transfer(srcpath, srcpath)
