@@ -1,7 +1,7 @@
 # Recursion-Subdirectories
 Transfers all files with a certain extension in subdirectories into the main directory!
 
-#Installation
+# Installation
 Put in any folder.
 Requires the configobj module to work.
 
